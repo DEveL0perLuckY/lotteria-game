@@ -70,7 +70,6 @@ app.post("/api/start", async (req, res) => {
   }
 });
 
-// Cut number
 app.post("/api/cut", async (req, res) => {
   try {
     const { gameId, number } = req.body;
@@ -82,15 +81,12 @@ app.post("/api/cut", async (req, res) => {
 
     game.drawnNumbers.push(number);
 
-    // Update user1
     if (
       game.user1.grid.flat().includes(number) &&
       !game.user1.cutNumbers.includes(number)
     ) {
       game.user1.cutNumbers.push(number);
     }
-
-    // Update user2
     if (
       game.user2.grid.flat().includes(number) &&
       !game.user2.cutNumbers.includes(number)
@@ -106,7 +102,6 @@ app.post("/api/cut", async (req, res) => {
   }
 });
 
-// MongoDB Change Stream
 const watchGames = () => {
   const changeStream = Game.watch([], { fullDocument: "updateLookup" });
 
@@ -115,7 +110,6 @@ const watchGames = () => {
       const fullDocument = change.fullDocument;
       if (!fullDocument) return;
 
-      // Check win conditions only if game is in progress
       if (fullDocument.status === "in_progress") {
         const winner = checkWin(fullDocument);
 
@@ -137,14 +131,11 @@ const watchGames = () => {
   });
 };
 
-// Check win conditions
 const checkWin = (game) => {
-  // Check rows and columns for user1
   if (checkRows(game.user1) || checkColumns(game.user1)) {
     return "User 1";
   }
 
-  // Check rows and columns for user2
   if (checkRows(game.user2) || checkColumns(game.user2)) {
     return "User 2";
   }
