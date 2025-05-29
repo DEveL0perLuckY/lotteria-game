@@ -139,111 +139,195 @@ function App() {
 
   const isNumberDrawn = (number) => drawnNumbers.includes(number);
 
-  const renderGrid = (grid, userIndex) => (
-    <Paper elevation={3} sx={{ p: 2, mb: 2, backgroundColor: "#f5f5f5" }}>
-      <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
-        User {userIndex + 1} Grid
-      </Typography>
-      {grid.map((row, rIdx) => (
-        <Grid container spacing={1} key={rIdx} justifyContent="center">
-          {row.map((num, cIdx) => (
-            <Grid item xs={4} key={cIdx}>
-              <TextField
-                value={num}
-                onChange={(e) =>
-                  handleChange(
-                    userIndex === 0 ? setGrid1 : setGrid2,
-                    grid,
-                    rIdx,
-                    cIdx,
-                    e.target.value
-                  )
-                }
-                type="number"
-                disabled={gameStatus !== "setup"}
-                fullWidth
-                inputProps={{
-                  min: 1,
-                  max: 9,
-                  style: {
-                    textAlign: "center",
-                    textDecoration: isNumberDrawn(num)
-                      ? "line-through"
-                      : "none",
-                    fontWeight: isNumberDrawn(num) ? "bold" : "normal",
-                    color: isNumberDrawn(num) ? "#f44336" : "#000",
-                  },
-                }}
-                sx={{
-                  "& .MuiInputBase-root": {
-                    height: 60,
-                    fontSize: "1.5rem",
-                  },
-                  backgroundColor: isNumberDrawn(num) ? "#ffebee" : "#fff",
-                }}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      ))}
-
-      <Box sx={{ mt: 2, display: "flex", justifyContent: "center", gap: 1 }}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={startGame}
-          disabled={gameStatus !== "setup"}
-          sx={{ flex: 1 }}
-        >
-          START GAME
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={stopGame}
-          disabled={gameStatus !== "in_progress"}
-          sx={{ flex: 1 }}
-        >
-          STOP GAME
-        </Button>
-      </Box>
-    </Paper>
-  );
-
   return (
-    <Box p={4} maxWidth={800} margin="0 auto">
-      <Typography
-        variant="h4"
-        gutterBottom
-        sx={{
-          textAlign: "center",
-          fontWeight: "bold",
-          color: "#2e7d32",
-          mb: 4,
-        }}
-      >
-        El Lotteria Game
-      </Typography>
+    <Box
+      p={4}
+      maxWidth={800}
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      margin="0 auto"
+      minHeight="100vh"
+    >
+      <Grid container spacing={4} justifyContent="center">
+        {/* User 1 Grid */}
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} sx={{ p: 2, backgroundColor: "#f5f5f5" }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                mb: 2,
+              }}
+            >
+              User 1 Grid
+            </Typography>
+            {grid1.map((row, rIdx) => (
+              <Grid container spacing={1} key={rIdx} justifyContent="center">
+                {row.map((num, cIdx) => (
+                  <Grid item xs={4} key={cIdx}>
+                    <TextField
+                      value={num}
+                      onChange={(e) =>
+                        handleChange(
+                          setGrid1,
+                          grid1,
+                          rIdx,
+                          cIdx,
+                          e.target.value
+                        )
+                      }
+                      type="number"
+                      disabled={gameStatus !== "setup"}
+                      fullWidth
+                      inputProps={{
+                        min: 1,
+                        max: 9,
+                        inputMode: "numeric",
+                        style: {
+                          textAlign: "center",
+                          textDecoration: isNumberDrawn(num)
+                            ? "line-through"
+                            : "none",
+                          fontWeight: isNumberDrawn(num) ? "bold" : "normal",
+                          color: isNumberDrawn(num) ? "#f44336" : "#000",
+                          appearance: "textfield",
+                          MozAppearance: "textfield",
+                        },
+                      }}
+                      sx={{
+                        margin: 1,
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                          {
+                            WebkitAppearance: "none",
+                            margin: 0,
+                          },
+                        "& .MuiInputBase-root": {
+                          height: 60,
+                          fontSize: "1.5rem",
+                        },
+                        backgroundColor: isNumberDrawn(num)
+                          ? "#ffebee"
+                          : "#fff",
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ))}
+          </Paper>
+        </Grid>
 
-      <Grid container spacing={4}>
+        {/* User 2 Grid */}
         <Grid item xs={12} md={6}>
-          {renderGrid(grid1, 0)}
+          <Paper elevation={3} sx={{ p: 2, backgroundColor: "#f5f5f5" }}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                mb: 2,
+              }}
+            >
+              User 2 Grid
+            </Typography>
+            {grid2.map((row, rIdx) => (
+              <Grid container spacing={1} key={rIdx} justifyContent="center">
+                {row.map((num, cIdx) => (
+                  <Grid item xs={4} key={cIdx}>
+                    <TextField
+                      value={num}
+                      onChange={(e) =>
+                        handleChange(
+                          setGrid2,
+                          grid2,
+                          rIdx,
+                          cIdx,
+                          e.target.value
+                        )
+                      }
+                      type="number"
+                      disabled={gameStatus !== "setup"}
+                      fullWidth
+                      inputProps={{
+                        min: 1,
+                        max: 9,
+                        inputMode: "numeric",
+                        style: {
+                          textAlign: "center",
+                          textDecoration: isNumberDrawn(num)
+                            ? "line-through"
+                            : "none",
+                          fontWeight: isNumberDrawn(num) ? "bold" : "normal",
+                          color: isNumberDrawn(num) ? "#f44336" : "#000",
+                          appearance: "textfield",
+                          MozAppearance: "textfield",
+                        },
+                      }}
+                      sx={{
+                        margin: 1,
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                          {
+                            WebkitAppearance: "none",
+                            margin: 0,
+                          },
+                        "& .MuiInputBase-root": {
+                          height: 60,
+                          fontSize: "1.5rem",
+                        },
+                        backgroundColor: isNumberDrawn(num)
+                          ? "#ffebee"
+                          : "#fff",
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ))}
+          </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          {renderGrid(grid2, 1)}
-        </Grid>
+        <Box alignContent={"center"}>
+          <Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
+            <Button
+              variant="contained"
+              color="black"
+              onClick={startGame}
+              disabled={gameStatus !== "setup"}
+              sx={{ width: "100%", py: 1.5 }}
+            >
+              START GAME
+            </Button>
+          </Box>
+
+          <Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
+            <Button
+              variant="contained"
+              color="black"
+              onClick={stopGame}
+              disabled={gameStatus !== "in_progress"}
+              sx={{ width: "100%", py: 1.5 }}
+            >
+              STOP GAME
+            </Button>
+          </Box>
+        </Box>
       </Grid>
 
       {drawnNumbers.length > 0 && (
-        <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Typography variant="h6">Drawn Numbers:</Typography>
+        <Box sx={{ mt: 4, textAlign: "center", width: "100%" }}>
+          <Typography variant="h6" sx={{ mb: 1.5 }}>
+            Drawn Numbers
+          </Typography>
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
               gap: 1,
-              mt: 1,
             }}
           >
             {drawnNumbers.map((num, idx) => (
@@ -269,32 +353,53 @@ function App() {
 
       {gameStatus === "finished" && !openDialog && (
         <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Button variant="contained" onClick={resetGame}>
+          <Button
+            variant="contained"
+            onClick={resetGame}
+            sx={{ px: 4, py: 1.5 }}
+          >
             PLAY AGAIN
           </Button>
         </Box>
       )}
 
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        PaperProps={{ sx: { borderRadius: 2 } }}
+      >
         <DialogTitle
           sx={{
             textAlign: "center",
             backgroundColor: "#4caf50",
             color: "white",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
           }}
         >
           🎉 Winner! 🎉
         </DialogTitle>
-        <DialogContent sx={{ textAlign: "center", py: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        <DialogContent sx={{ textAlign: "center", py: 3 }}>
+          <Typography variant="h4" sx={{ fontWeight: "bold", mt: 1 }}>
             {winner}
           </Typography>
-          <Typography variant="body1" sx={{ mt: 2 }}>
+          <Typography variant="body1" sx={{ mt: 2, fontSize: "1.1rem" }}>
             Congratulations on winning the game!
           </Typography>
         </DialogContent>
-        <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
-          <Button variant="contained" onClick={resetGame} sx={{ px: 5, py: 1 }}>
+        <DialogActions sx={{ justifyContent: "center", pb: 3, px: 3 }}>
+          <Button
+            variant="contained"
+            onClick={resetGame}
+            sx={{
+              px: 5,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+              backgroundColor: "#4caf50",
+              "&:hover": { backgroundColor: "#388e3c" },
+            }}
+          >
             PLAY AGAIN
           </Button>
         </DialogActions>

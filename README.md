@@ -1,5 +1,5 @@
 # lotteria-game
 
 git add .  
-git commit -m "initial app setup"
+git commit -m "full working"
 git push
